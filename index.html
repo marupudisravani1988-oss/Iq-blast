@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brain Blast! 🐒</title>
+  <link href="https://fonts.googleapis.com/css2?family=Boogaloo&family=Baloo+2:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ── Decorations ─────────────────────────────── -->
+  <div class="deco-star" style="top:8%;left:4%;font-size:1.4rem;animation-delay:0s">🌟</div>
+  <div class="deco-star" style="top:18%;right:5%;font-size:1rem;animation-delay:1.1s">⭐</div>
+  <div class="deco-star" style="top:50%;left:2%;font-size:1.2rem;animation-delay:.6s">✨</div>
+  <div class="deco-star" style="top:68%;right:3%;font-size:1.1rem;animation-delay:1.8s">🌟</div>
+  <div class="leaf" style="top:30%;right:8%;animation-delay:0s">🍃</div>
+  <div class="leaf" style="top:60%;left:5%;animation-delay:1s">🌿</div>
+
+  <!-- ── Welcome Screen ─────────────────────────── -->
+  <div id="welcome-screen">
+    <div id="welcome-monkey-wrap">
+      <!-- Inline SVG so no extra file request needed for the welcome pose -->
+      <svg viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+        <path d="M105 195 Q130 200 140 180 Q150 162 130 158" stroke="#7b3f00" stroke-width="10" fill="none" stroke-linecap="round"/>
+        <ellipse cx="100" cy="176" rx="37" ry="40" fill="#a0522d"/>
+        <ellipse cx="100" cy="182" rx="22" ry="27" fill="#deb887"/>
+        <path d="M64 167 Q42 147 37 127 Q34 114 44 110" stroke="#a0522d" stroke-width="14" fill="none" stroke-linecap="round"/>
+        <circle cx="43" cy="108" r="10" fill="#a0522d"/><circle cx="36" cy="101" r="6" fill="#a0522d"/>
+        <circle cx="46" cy="98"  r="6" fill="#a0522d"/><circle cx="53" cy="102" r="5" fill="#a0522d"/>
+        <path d="M136 167 Q158 147 163 127 Q166 114 156 110" stroke="#a0522d" stroke-width="14" fill="none" stroke-linecap="round"/>
+        <circle cx="157" cy="108" r="10" fill="#a0522d"/><circle cx="164" cy="101" r="6" fill="#a0522d"/>
+        <circle cx="154" cy="98"  r="6" fill="#a0522d"/><circle cx="147" cy="102" r="5" fill="#a0522d"/>
+        <ellipse cx="80"  cy="212" rx="13" ry="8" fill="#8B5010"/>
+        <ellipse cx="120" cy="212" rx="13" ry="8" fill="#8B5010"/>
+        <ellipse cx="100" cy="112" rx="44" ry="42" fill="#a0522d"/>
+        <ellipse cx="100" cy="120" rx="28" ry="22" fill="#deb887"/>
+        <ellipse cx="58"  cy="110" rx="14" ry="13" fill="#a0522d"/>
+        <ellipse cx="58"  cy="110" rx="8"  ry="7"  fill="#deb887"/>
+        <ellipse cx="142" cy="110" rx="14" ry="13" fill="#a0522d"/>
+        <ellipse cx="142" cy="110" rx="8"  ry="7"  fill="#deb887"/>
+        <path d="M82 106 Q87 100 92 106" stroke="#3a2a1a" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M108 106 Q113 100 118 106" stroke="#3a2a1a" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <ellipse cx="79"  cy="115" rx="10" ry="6" fill="#ff9999" opacity=".45"/>
+        <ellipse cx="121" cy="115" rx="10" ry="6" fill="#ff9999" opacity=".45"/>
+        <path d="M84 122 Q100 138 116 122" stroke="#3a2a1a" stroke-width="2.5" fill="#ff5555" stroke-linecap="round"/>
+        <path d="M87 122 Q100 131 113 122" fill="#ff8888"/>
+        <circle cx="96"  cy="120" r="2.5" fill="#8B5E3C" opacity=".55"/>
+        <circle cx="104" cy="120" r="2.5" fill="#8B5E3C" opacity=".55"/>
+        <text x="26" y="80" font-size="20">⭐</text>
+        <text x="150" y="75" font-size="16">✨</text>
+        <text x="88"  y="58" font-size="14">🌟</text>
+      </svg>
+    </div>
+
+    <div class="welcome-title">🐒 Brain Blast!</div>
+    <div class="welcome-sub">The Fun Learning Adventure for Kids!</div>
+
+    <input class="welcome-name-input" id="name-input"
+           type="text" placeholder="What's your name? 🐒"
+           maxlength="18" autocomplete="off"/>
+
+    <button class="start-btn" onclick="startGame()">Let's Play! 🚀</button>
+
+    <div class="welcome-badges">
+      <div class="w-badge">🔢 Math</div>
+      <div class="w-badge">📖 Stories</div>
+      <div class="w-badge">🧩 Logic</div>
+      <div class="w-badge">❤️ Feelings</div>
+    </div>
+  </div>
+
+  <!-- ── Top Bar ─────────────────────────────────── -->
+  <div id="topbar" style="display:none">
+    <div>
+      <div class="logo-text">🐒 Brain Blast!</div>
+      <div class="player-name" id="player-name-display"></div>
+    </div>
+    <div class="chips">
+      <div class="chip" id="xp-chip">⚡ <span id="xp-val">0</span></div>
+      <div class="chip" id="streak-chip">🔥 <span id="streak-val">0</span></div>
+    </div>
+  </div>
+
+  <!-- ── Main App ────────────────────────────────── -->
+  <div id="app">
+    <div id="level-badge"><span id="level-text">⭐ Starter</span></div>
+
+    <!-- Monkey Stage – canvas is injected here by monkey.js -->
+    <div id="monkey-stage">
+      <div id="speech-bubble"></div>
+      <!-- monkey.js creates and appends a <canvas> element here -->
+    </div><!-- /monkey-stage -->
+
+    <!-- Timer Bar -->
+    <div id="timer-bar-wrap"><div id="timer-bar"></div></div>
+
+    <!-- Puzzle Card (rendered by game.js) -->
+    <div id="game"></div>
+
+    <!-- Progress Report -->
+    <div id="report-section">
+      <h3>📊 My Progress</h3>
+      <div id="report"></div>
+    </div>
+  </div><!-- /app -->
+
+  <!-- ── Scripts (ORDER MATTERS) ────────────────── -->
+  <script src="js/puzzles.js"></script>   <!-- all puzzle data -->
+  <script src="js/monkey.js"></script>    <!-- monkey states & animations -->
+  <script src="js/effects.js"></script>   <!-- confetti, XP burst, sounds -->
+  <script src="js/game.js"></script>      <!-- core game logic -->
+
+</body>
+</html>
